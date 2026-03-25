@@ -1,7 +1,7 @@
 package dev.java10x.CadastroDeNinjas.Missoes;
-
 import dev.java10x.CadastroDeNinjas.Ninjas.NinjaModel;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_missoes")
@@ -12,16 +12,17 @@ public class MissoesModel {
     private Long id;
     private String nome;
     private String dificuldade;
-    private NinjaModel ninja;
+    // @OneToMany - Uma missao pode ter varios ninjas
+    @OneToMany(mappedBy = "missoes") // FK
+    private List<NinjaModel> ninja;
 
     public MissoesModel() {
     }
 
-    public MissoesModel(Long id, String nome, String dificuldade, NinjaModel ninja) {
+    public MissoesModel(Long id, String nome, String dificuldade) {
         this.id = id;
         this.nome = nome;
         this.dificuldade = dificuldade;
-        this.ninja = ninja;
     }
 
     public Long getId() {
@@ -48,11 +49,4 @@ public class MissoesModel {
         this.dificuldade = dificuldade;
     }
 
-    public NinjaModel getNinja() {
-        return ninja;
-    }
-
-    public void setNinja(NinjaModel ninja) {
-        this.ninja = ninja;
-    }
 }
